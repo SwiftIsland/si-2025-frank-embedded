@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# Use latest Swift toolchain
+infopath="$HOME/Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist"
+[ -f $infopath ] || infopath="/Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist"
+[ -f $infopath ] || echo "Error: Swift toolchain not found."
+[ -f $infopath ] || exit 1
+export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' $infopath)
+
+# Make Espressif tools available
+selected=$(jq ".idfSelectedId" $HOME/.espressif/esp_idf.json)
+idf_path=$(jq --raw-output ".idfInstalled.[$selected].path" $HOME/.espressif/esp_idf.json)
+. $idf_path/export.sh
+
+# Set ESP-IDF Target
+export IDF_TARGET=esp32c6
+
+# Detect connected device
+echo
+echo "Detecting connected device..."
+espport=$(ls -1 /dev/tty.usbmodem*) 2> /dev/null
+count=$(echo $espport | wc -w | xargs)
+if [[ $count = 1 ]]
+then
+  echo "Found: $espport"
+  export ESPPORT="$espport"
+else
+  echo "Couldn't find a unique device. Please configure ESPPORT manually."
+fi
+
+# For manual configuration, if needed:
+# export ESPPORT=/dev/tty.usbmodemXXXX
+
+# Copy in ~/.zshrc
+# alias esp-setup=". $HOME/esp/esp-setup"
