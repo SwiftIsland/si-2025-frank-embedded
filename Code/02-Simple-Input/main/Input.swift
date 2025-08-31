@@ -1,7 +1,7 @@
 struct Input {
     private let pin: gpio_num_t
 
-    init(gpioPin: some BinaryInteger) {
+    init(gpioPin: Int) {
         pin = gpio_num_t(Int32(gpioPin))
 
         guard gpio_reset_pin(pin) == ESP_OK else {

@@ -4,7 +4,9 @@ final class DebouncedInput {
     private var timer: Timer? = nil
     private(set) var state = false
 	
-    init(gpioPin: some BinaryInteger, callback: @escaping Input.Callback) {
+    // Workaround for https://github.com/swiftlang/swift/issues/78150
+    // When this issue is fixed, gpioPin can be `some BinaryInteger`
+    init(gpioPin: Int, callback: @escaping Input.Callback) {
         self.callback = callback
         let input = Input(gpioPin: gpioPin) { newState in
             guard let timer = self.timer, !timer.isRunning else { return }

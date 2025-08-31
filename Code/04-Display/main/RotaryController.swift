@@ -8,7 +8,7 @@ struct RotaryController {
     private let clockInput: DebouncedInput
     private let callback: (Direction) -> Void
 
-    init(clkPin: some BinaryInteger, dtPin: some BinaryInteger, callback: @escaping (Direction) -> Void) {
+    init(clkPin: Int, dtPin: Int, callback: @escaping (Direction) -> Void) {
         let dataInput = Input(gpioPin: dtPin)
         let clockInput = DebouncedInput(gpioPin: clkPin) { state in
             guard state == false else { return } // only consider falling edge

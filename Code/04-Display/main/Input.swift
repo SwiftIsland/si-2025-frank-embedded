@@ -10,7 +10,9 @@ final class Input {
     private let callback: Callback?
     private let param: UnsafeMutablePointer<InterruptHandlerContext>?
 
-    init(gpioPin: some BinaryInteger, callback: Callback? = nil) {
+    // Workaround for https://github.com/swiftlang/swift/issues/78150
+    // When this issue is fixed, gpioPin can be `some BinaryInteger`
+    init(gpioPin: Int, callback: Callback? = nil) {
         self.pin = gpio_num_t(Int32(gpioPin))
         self.callback = callback
 
