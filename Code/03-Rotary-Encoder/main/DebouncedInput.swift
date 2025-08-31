@@ -1,4 +1,4 @@
-class DebouncedInput {
+final class DebouncedInput {
     private let callback: Input.Callback
     private var input: Input? = nil
     private var timer: Timer? = nil

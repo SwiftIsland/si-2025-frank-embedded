@@ -1,4 +1,4 @@
-class Input {
+final class Input {
     typealias Callback = ((Bool) -> Void)
 
     struct InterruptHandlerContext {
