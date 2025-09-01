@@ -95,6 +95,21 @@ extension Rect {
 		size.width = Unit(maxX - origin.x.value)
 		size.height = Unit(maxY - origin.y.value)
 	}
+
+	mutating func intersect(_ other: Rect) {
+		let maxX = min(self.maxX, other.maxX)
+		let maxY = min(self.maxY, other.maxY)
+		let minX = max(self.minX, other.minX)
+		let minY = max(self.minY, other.minY)
+		guard minX < maxX, minY < maxY else {
+			self = .zero
+			return
+		}
+		origin.x = Unit(minX)
+		origin.y = Unit(minY)
+		size.width = Unit(maxX - minX)
+		size.height = Unit(maxY - minY)
+	}
 }
 
 enum Color: UInt8 {

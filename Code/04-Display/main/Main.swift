@@ -5,7 +5,7 @@ func main() {
   let gaugeLeft = 12
   let gaugeTop = 7
   let gaugeWidth = 5
-  let gaugeHeight = 50
+  let gaugeHeight = 20
 
   var counter = 0
 

@@ -27,7 +27,7 @@ class Display {
 		u8g2 = UnsafeMutablePointer<u8g2_t>.allocate(capacity: 1)
 		u8g2Callbacks = UnsafeMutablePointer<u8g2_cb_t>.allocate(capacity: 1)
 		u8g2Callbacks.pointee = u8g2_cb_r0
-		u8g2_Setup_ssd1306_i2c_128x64_noname_f(u8g2, u8g2Callbacks, u8g2_esp32_i2c_byte_cb, u8g2_esp32_gpio_and_delay_cb)
+		u8g2_Setup_ssd1306_i2c_128x32_univision_f(u8g2, u8g2Callbacks, u8g2_esp32_i2c_byte_cb, u8g2_esp32_gpio_and_delay_cb)
 
 		u8g2.withMemoryRebound(to: u8x8_t.self, capacity: 1) { u8x8 in
 			u8x8.pointee.i2c_address = i2cAddress
